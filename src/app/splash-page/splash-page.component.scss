@@ -1,0 +1,10 @@
+@import 'variables';
+@import 'helpers';
+
+:host {
+  display: block;
+  background-color: $light-grey;
+  @extend .container;
+
+  max-width: none;
+}

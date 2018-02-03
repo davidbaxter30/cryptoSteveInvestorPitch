@@ -1,0 +1,36 @@
+
+
+:host {
+  nav {
+    display: grid;
+    grid-template-rows: 60px;
+    grid-template-columns: 60px 300px auto;
+    grid-template-areas: "logo company title";
+  }
+
+  background-color: rgba(127, 255, 212, 0.744);
+  border: 3px dashed rgba(127, 255, 212, 0.944);
+  display: block;
+
+  .logo {
+    grid-area: logo;
+    background-color: rgba(127, 182, 255, 0.944);
+    img {
+      height: 60px;
+      widows: 60px;
+    }
+  }
+
+  .company {
+    grid-area: company;
+    padding: .2em;
+    background-color: rgba(127, 182, 255, 0.944);
+    height: 100%;
+  }
+
+  .title {
+    grid-area: title;
+    padding: .2em;
+    font-size: 2em;
+  }
+}
