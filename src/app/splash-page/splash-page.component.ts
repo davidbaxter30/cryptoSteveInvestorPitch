@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { timeout } from 'q';
+import { LineItem, CmdImitatorService } from '../services/cmd-imitator.service';
 
 @Component({
   selector: 'app-splash-page',
@@ -9,10 +10,13 @@ import { timeout } from 'q';
 export class SplashPageComponent implements OnInit {
 
   line: boolean[];
+  lines: LineItem[];
 
-  constructor() { }
+  constructor(private cmdImitatorService: CmdImitatorService) { }
 
   ngOnInit() {
+    this.lines = this.cmdImitatorService.getLines();
+
     this.line = new Array(12).fill(true, 0, 12);
     this.revealConsoleReadout();
   }
