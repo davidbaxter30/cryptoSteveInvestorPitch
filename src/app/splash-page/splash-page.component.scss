@@ -1,5 +1,6 @@
 @import 'variables';
 @import 'helpers';
+@import 'functions';
 
 :host {
   display: block;
@@ -7,4 +8,46 @@
   @extend .container;
 
   max-width: none;
+  padding: 0;
+
+  .splash-area {
+    background-color: rgba(0, 255, 255, 0.356);
+
+    background-image: image('datafarm.jpg', $base-url);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    height: 90vh;
+
+    .overlay {
+      background-color: rgba(34, 33, 33, 0.774);
+      height: 100%;
+      width: 100%;
+
+      padding: 40px;
+
+      h2 {
+        color: rgb(231, 231, 231);
+        font-size: 40px;
+        font-weight: 600;
+      }
+      p { 
+        
+        margin: 0;
+        color: rgb(231, 231, 231);
+        span.success {
+          color: rgb(5, 184, 5)
+        }
+      }
+    }
+  }
+
+  .body-text {
+    padding: 40px;
+
+    img {
+      padding-top: 20px;
+      width: 100%;
+    }
+  }
 }
