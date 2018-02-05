@@ -1,0 +1,23 @@
+@import 'variables';
+@import 'helpers';
+@import 'functions';
+
+:host {
+  display: block;
+  height: 100vh;
+  overflow: hidden;
+
+  .background {
+    background-image: image('datafarm.jpg', $base-url);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+
+    .overlay {
+      background-color: rgba(34, 33, 33, 0.774);
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+

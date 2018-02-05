@@ -1,7 +1,15 @@
 :host {
+  .console {
+    height: 500px;
+    width: 350px;
+    padding: 20px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.486);
+
     h2 {
-        color: rgb(231, 231, 231);
-        font-size: 40px;
-        font-weight: 600;
-      }
+      color: rgb(231, 231, 231);
+      font-size: 40px;
+      font-weight: 600;
+    }
+  }
 }

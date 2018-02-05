@@ -26,14 +26,15 @@
     height: 100%;
     font-weight: 600;
     font-size: 20px;
-    color: $light-grey;
+    color: rgba(255, 255, 255, 0.781);
   }
 
   .links {
     grid-area: title;
     padding: .2em;
-    font-size: 2em;
+    font-size: 3em;
+    text-align: right;
     height: 100%;
-    color: $text-color;
+    color: rgba(255, 255, 255, 0.781);
   }
 }

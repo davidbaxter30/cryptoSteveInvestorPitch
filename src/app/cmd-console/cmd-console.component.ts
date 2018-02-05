@@ -7,7 +7,9 @@ import {
   ComponentFactoryResolver 
 } from '@angular/core';
 import { LineHostDirective } from '../line-host-directive/line-host.directive';
-import { LineItem } from '../services/cmd-imitator.service';
+import { LineItem, CmdImitatorService } from '../services/cmd-imitator.service';
+import { Subscription } from 'rxjs/Subscription';
+import { LineData, CmdImitatorComponent } from '../cmd-imitator/cmd-imitator.component';
 
 @Component({
   selector: 'app-cmd-console',
@@ -16,39 +18,45 @@ import { LineItem } from '../services/cmd-imitator.service';
 })
 export class CmdConsoleComponent implements AfterContentInit, OnDestroy {
   @Input() lines: LineItem[];
+  currentLine$: Subscription; 
   currentIndex: number = -1;
+  maxViewLenght: number = 18;
 
   @ViewChild(LineHostDirective) lineHost: LineHostDirective;
   subscription: any;
   interval: any;
 
-  constructor( private componentFactoryResolver: ComponentFactoryResolver ) { }
+  constructor( private componentFactoryResolver: ComponentFactoryResolver,
+  private cmdImitatorService: CmdImitatorService ) { }
 
   ngAfterContentInit() {
-    this.loadComponent();
-    this.startCmd();
+    this.currentLine$ = this.cmdImitatorService.lineSubject.subscribe((lineDataConfig: LineData[]) => {
+      this.loadComponent(lineDataConfig);
+    });
+    this.cmdImitatorService.pushNewLine();
   }
 
   ngOnDestroy() {
     clearInterval(this.interval);
+    this.currentLine$.unsubscribe();
   }
 
-  loadComponent() {
-    this.currentIndex = this.currentIndex + 1
-    let adItem = this.lines[this.currentIndex];
+  loadComponent(configArray: LineData[]) {
+    const newLineItem = new LineItem(CmdImitatorComponent, configArray);
 
-    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(adItem.component);
+    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(newLineItem.component);
 
     let viewContainerRef = this.lineHost.viewContainerRef;
 
     let componentRef = viewContainerRef.createComponent(componentFactory);
-   componentRef.instance.data = adItem.data;
+    componentRef.instance.data = newLineItem.data;
+
+    this.cleanView();
   }
 
-  startCmd() {
-    this.interval = setInterval(() => {
-      this.loadComponent();
-    }, 3000);
+  private cleanView(): void {
+    if (this.lineHost.viewContainerRef.length > this.maxViewLenght) {
+      this.lineHost.viewContainerRef.remove(this.lineHost.viewContainerRef.length - this.maxViewLenght - 1); 
+    }             
   }
-
 }

@@ -4,36 +4,35 @@
 
 :host {
   display: block;
-  background-color: $light-grey;
   @extend .container;
 
   max-width: none;
   padding: 0;
 
   .splash-area {
-    background-color: rgba(0, 255, 255, 0.356);
+    height: 100%;
+    display: grid;
+    grid-template-columns: 350px 30px auto;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "console . body";
 
-    background-image: image('datafarm.jpg', $base-url);
-    background-repeat: no-repeat;
-    background-size: cover;
-
-    height: 90vh;
-
-    .overlay {
-      background-color: rgba(34, 33, 33, 0.774);
-      height: 100%;
-      width: 100%;
-
-      padding: 40px;
+    app-cmd-console {
+      grid-area: console;
     }
-  }
 
-  .body-text {
-    padding: 40px;
-
-    img {
-      padding-top: 20px;
-      width: 100%;
+    .body-text {
+      grid-area: body;
+      overflow: hidden;
+      height: 85vh;
+      padding: 40px;
+      background-color: rgba(231, 231, 231, 0.386);
+      color: rgba(0, 0, 0, 0.767);
+      font-weight: 600;
+      
+      img {
+        height: 80vh;
+      }
     }
   }
 }
