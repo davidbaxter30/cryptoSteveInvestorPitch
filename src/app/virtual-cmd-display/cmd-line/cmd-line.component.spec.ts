@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CmdImitatorComponent } from './cmd-imitator.component';
+import { CmdLineComponent } from './cmd-line.component';
 
-describe('CmdImitatorComponent', () => {
-  let component: CmdImitatorComponent;
-  let fixture: ComponentFixture<CmdImitatorComponent>;
+describe('CmdLineComponent', () => {
+  let component: CmdLineComponent;
+  let fixture: ComponentFixture<CmdLineComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CmdImitatorComponent ]
+      declarations: [ CmdLineComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CmdImitatorComponent);
+    fixture = TestBed.createComponent(CmdLineComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

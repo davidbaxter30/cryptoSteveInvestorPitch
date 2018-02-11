@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CmdImitatorService } from '../services/cmd-imitator.service';
+import { CmdConsoleService } from '../cmd-console.service';
 
 export interface LineData {
   text: string;
@@ -7,16 +7,16 @@ export interface LineData {
 }
 
 @Component({
-  selector: 'app-cmd-imitator',
-  templateUrl: './cmd-imitator.component.html',
-  styleUrls: ['./cmd-imitator.component.scss']
+  selector: 'app-cmd-line',
+  templateUrl: './cmd-line.component.html',
+  styleUrls: ['./cmd-line.component.scss']
 })
-export class CmdImitatorComponent implements OnInit {
+export class CmdLineComponent implements OnInit {
 
   @Input() data: LineData[]
   hideLine: boolean = true;
 
-  constructor( private cmdImitatorService: CmdImitatorService ) { 
+  constructor( private cmdConsoleService: CmdConsoleService ) { 
   }
 
   ngOnInit() {
@@ -26,7 +26,7 @@ export class CmdImitatorComponent implements OnInit {
   revealLine() {
     setTimeout(
       () => {
-        this.cmdImitatorService.pushNewLine();
+        this.cmdConsoleService.pushNewLine();
         this.hideLine = false;
       }, 
       (Math.random() * 1000)

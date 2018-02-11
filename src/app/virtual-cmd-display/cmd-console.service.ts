@@ -1,24 +1,27 @@
 import { Injectable, Type } from '@angular/core';
-import { CmdImitatorComponent, LineData } from '../cmd-imitator/cmd-imitator.component';
-import { InitialLineSet } from '../constants/initialLines';
+import { CmdLineComponent, LineData } from './cmd-line/cmd-line.component';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+
+import { Utilities } from './utilities/'
 
 export class LineItem {
   constructor(public component: Type<any>, public data: LineData[]) {}
 }
 
+export interface LineConfig {
+  initial: LineData[][];
+  pool: LineData[][];
+}
+
 @Injectable()
-export class CmdImitatorService {
+export class CmdConsoleService {
 
   public lineSubject: Subject<LineData[]> = new Subject();
   private initialSetCurrentIndex: number = -1;
   private randomLinesSinceComplete: number = 0;
-
-  private linePool: LineData[][] = [
-    [{text: 'mining at {hashrate}MH/s'}],
-    [{text: 'Complete', color: 'green'}]
-  ]
+  private linePool: LineData[][];
+  private initialLines: LineData[][];
 
   constructor() { }
 
@@ -35,7 +38,7 @@ export class CmdImitatorService {
     } else if ( this.randomLinesSinceComplete > 5 && newLineIndex + 1 === this.linePool.length) {
       this.randomLinesSinceComplete = 0;
     }
-    let newLine: LineData[] = this.cloneArray(this.linePool)[newLineIndex];
+    let newLine: LineData[] = Utilities.CloneArray(this.linePool)[newLineIndex];
     
     if (newLineIndex === 0) {
       newLine[0].text = newLine[0].text.replace('{hashrate}', this.getRandomHashRate() )
@@ -52,17 +55,10 @@ export class CmdImitatorService {
     return (3000 + (Math.random() * 300)).toFixed(3).toString()
   }
 
-  private cloneArray (existingArray): any[]{
-    var newObj = [];
-    for (let i in existingArray) {
-       if (i == 'clone') continue;
-       if (existingArray[i] && typeof existingArray[i] == "object") {
-          newObj[i] = this.cloneArray(existingArray[i]);
-       } else {
-          newObj[i] = existingArray[i]
-       }
-    }
-    return newObj;
+  setLines(config: LineConfig) {
+    this.initialLines = config.initial;
+    this.linePool = config.pool;
+
   }
 
   // function line can call after it shows itself
@@ -70,9 +66,9 @@ export class CmdImitatorService {
   pushNewLine() {
     // if initial set hasn't completed use initial set and
     // increment current index;
-    if ( this.initialSetCurrentIndex < InitialLineSet.length ) {
+    if ( this.initialSetCurrentIndex < this.initialLines.length ) {
       this.initialSetCurrentIndex++;
-      this.lineSubject.next(InitialLineSet[this.initialSetCurrentIndex])
+      this.lineSubject.next(this.initialLines[this.initialSetCurrentIndex])
     } else {
       this.lineSubject.next(this.getNewLine());
     }

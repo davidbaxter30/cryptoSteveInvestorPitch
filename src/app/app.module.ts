@@ -7,28 +7,19 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { SplashPageComponent } from './splash-page/splash-page.component';
 import { InvestmentSliderComponent } from './investment-slider/investment-slider.component';
-import { CmdImitatorComponent } from './cmd-imitator/cmd-imitator.component';
-import { LineHostDirective } from './line-host-directive/line-host.directive';
-import { CmdImitatorService } from './services/cmd-imitator.service';
-import { CmdConsoleComponent } from './cmd-console/cmd-console.component';
+import { VirtualCmdDisplayModule } from './virtual-cmd-display/virtual-cmd-display.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     SplashPageComponent,
-    InvestmentSliderComponent,
-    CmdImitatorComponent,
-    LineHostDirective,
-    CmdConsoleComponent
+    InvestmentSliderComponent
   ],
-  entryComponents: [ CmdImitatorComponent ],
   imports: [
     BrowserModule,
-    RoutingModule
-  ],
-  providers: [
-    CmdImitatorService
+    RoutingModule,
+    VirtualCmdDisplayModule
   ],
   bootstrap: [AppComponent]
 })

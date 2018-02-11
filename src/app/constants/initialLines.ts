@@ -1,4 +1,4 @@
-export const InitialLineSet = [
+export const InitialLines = [
   [
     { text: 'checking gpu 1: status '},
     { text: 'healthy', color: 'green'}
